@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Text>Text to Upper</Text>
+    <Description>Some description for RevitAddinWorkshop</Description>
+    <Assembly>RevitAddinWorkshop.dll</Assembly>
+    <FullClassName>RevitAddinWorkshop.Command</FullClassName>
+    <ClientId>6f2a5176-2569-45ca-bc90-7067b78c2a05</ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+	<AddIn Type="Command">
+		<Text>Command01</Text>
+		<Description>Some description for RevitAddinWorkshop</Description>
+		<Assembly>RevitAddinWorkshop.dll</Assembly>
+		<FullClassName>RevitAddinWorkshop.Command01</FullClassName>
+		<ClientId>AE8C6BCD-89CC-4479-893E-69B6EAE1EA83</ClientId>
+		<VendorId>com.typepad.thebuildingcoder</VendorId>
+		<VendorDescription>Dan Warren, http://twitter.com/_thedanwarren</VendorDescription>
+	</AddIn>
+
+</RevitAddIns>
