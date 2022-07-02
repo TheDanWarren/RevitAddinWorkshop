@@ -10,5 +10,14 @@
 		<VendorId>NO.Vendor.ID</VendorId>
 		<VendorDescription>Dan Warren, http://twitter.com/_thedanwarren</VendorDescription>
 	</AddIn>
+	<AddIn Type="Command">
+		<Text>Delete Backup Files</Text>
+		<Description>Delete the Revit backup files</Description>
+		<Assembly>RevitAddinWorkshop.dll</Assembly>
+		<FullClassName>RevitAddinWorkshop.cmdDeleteBackups</FullClassName>
+		<ClientId>ED865E1A-F8DD-469F-929B-0271B645BE02</ClientId>
+		<VendorId>NO.Vendor.ID</VendorId>
+		<VendorDescription>Dan Warren, http://twitter.com/_thedanwarren</VendorDescription>
+	</AddIn>
 
 </RevitAddIns>
