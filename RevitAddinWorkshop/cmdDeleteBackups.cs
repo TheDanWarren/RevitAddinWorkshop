@@ -33,7 +33,7 @@ namespace RevitAddinWorkshop
             FolderBrowserDialog selectFolder = new FolderBrowserDialog();
             selectFolder.ShowNewFolderButton = false;
 
-            // opn folder dialog and only run code if a folder is selected
+            // open folder dialog and only run code if a folder is selected
             if(selectFolder.ShowDialog() == DialogResult.OK)
             {
                 // get the selected folder path
@@ -48,10 +48,21 @@ namespace RevitAddinWorkshop
                     // check if the file is a Revit File
                     if(Path.GetExtension(file) == ".rvt" || Path.GetExtension(file) == ".rfa")
                     {
-                        // get the last 9 characters of file name to check if backup
-                        string checkString = file.Substring(file.Length - 9, 9);
+                        // get the last 8 characters of file name to check if backup
+                        string checkString = file.Substring(file.Length - 8, 8);
+
+                        // remove the file extension from the string checkString
+                        string checkString2 = checkString.Substring(0, 4);
+
                         
-                        if(checkString.Contains(".0") == true)
+
+                        // convert the string pulled from the Revit Journal log number into an integer for a logical check.
+                        int checkInt = 0;
+                        bool success = int.TryParse(checkString2, out checkInt);
+                        
+
+                        // confirm the integer is between 
+                        if(checkInt > 0 && checkInt < 9999)
                         {
                             deletedFileLog.Add(file);
                             File.Delete(file);
