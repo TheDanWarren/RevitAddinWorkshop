@@ -26,6 +26,7 @@ namespace RevitAddinWorkshop
             Application app = uiapp.Application;
             Document doc = uidoc.Document;
 
+
             //hardcode location of excel file
             string excelFile = @"C:\DWARREN\Session02_Challenge.xlsx";
 
