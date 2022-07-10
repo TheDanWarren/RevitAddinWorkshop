@@ -2,7 +2,7 @@
 <RevitAddIns>
 
 	<AddIn Type="Command">
-		<Text>FizzBuzz</Text>
+		<Text>Session02Challenge</Text>
 		<Description>Command</Description>
 		<Assembly>RevitAddinWorkshop.dll</Assembly>
 		<FullClassName>RevitAddinWorkshop.Session02Challenge</FullClassName>

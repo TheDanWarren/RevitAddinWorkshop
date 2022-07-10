@@ -26,59 +26,105 @@ namespace RevitAddinWorkshop
             Application app = uiapp.Application;
             Document doc = uidoc.Document;
 
+            //hardcode location of excel file
+            string excelFile = @"C:\DWARREN\Session02_Challenge.xlsx";
 
-            string excelFile = @"C:\DWARREN\Session 02_Combination Sheet List.xlsx";
-
+            //excel overhead
             Excel.Application excelApp = new Excel.Application();
             Excel.Workbook excelWb = excelApp.Workbooks.Open(excelFile);
-            Excel.Worksheet excelWs = excelWb.Worksheets.Item[1];
+            Excel.Worksheet excelWsLevels = excelWb.Worksheets.Item[1];
+            Excel.Worksheet excelWsSheets = excelWb.Worksheets.Item[2];
 
-            Excel.Range excelRange = excelWs.UsedRange;
-            int rowCount = excelRange.Rows.Count;
+            //get count of total excel rows for levels
+            Excel.Range excelRangeLevels = excelWsLevels.UsedRange;
+            int rowCountLevels = excelRangeLevels.Rows.Count;
 
-            //do some stuff in Excel
-            List<string[]> dataList = new List<string[]>();
+            //get count of total excel rows for Sheets
+            Excel.Range excelRangeSheets = excelWsSheets.UsedRange;
+            int rowCountSheets = excelRangeSheets.Rows.Count;
 
-            for(int i = 1; i<= rowCount; i++)
+            //Make an array called dataListLevels
+            //Make an array called dataListSheets
+            //set array length to total count of rows. Array must know how large it is.
+            List<string[]> dataListLevels = new List<string[]>();
+            List<string[]> dataListSheets = new List<string[]>();
+
+            //create a string for each Sheet Number and Sheet Name from Excel
+            //this creates a string for each and then adds those to the array
+            //***Remember-data has headers so you'll need to skip first row.
+            //Do levels first then Sheets
+            for (int i1 = 2; i1<= rowCountLevels; i1++)
             {
-                Excel.Range cell1 = excelWs.Cells[i, 1];
-                Excel.Range cell2 = excelWs.Cells[i, 2];
+                //pull the value from excel, ROW THEN COLUMN.
+                //Column 1 = Name Column 2 = Elevation in ft
+                Excel.Range excelLevelName = excelWsLevels.Cells[i1, 1];
+                Excel.Range excelLevelElev = excelWsLevels.Cells[i1, 2];
 
-                string data1 = cell1.Value.ToString();
-                string data2 = cell2.Value.ToString();
+                string dataLevelName = excelLevelName.Value.ToString();
+                string dataLevelElev = excelLevelElev.Value.ToString();
 
-                string[] dataArray = new string[2];
-                dataArray[0] = data1;
-                dataArray[1] = data2;
 
-                dataList.Add(dataArray);
+                string[] dataArrayLevels = new string[2];
+                dataArrayLevels[0] = dataLevelName;
+                dataArrayLevels[1] = dataLevelElev;
+
+                dataListLevels.Add(dataArrayLevels);
+
+                //create level
+                using (Transaction t = new Transaction(doc))
+                {
+                    t.Start("Create Levels");
+                    
+                    double curDouble = Double.Parse(dataLevelElev);
+
+                    Level curLevel = Level.Create(doc, curDouble);
+
+                    t.Commit();
+                }
             }
-            using (Transaction t = new Transaction(doc))
+
+            for (int i2 = 2; i2 <= rowCountSheets; i2++)
             {
-                t.Start("Create some Revit stuff");
+                //pull the value from excel, ROW THEN COLUMN.
+                //column 1 = Sheet Number; Column 2 = Sheet Name
+                Excel.Range excelSheetNumber = excelWsSheets.Cells[i2, 1];
+                Excel.Range excelSheetName = excelWsSheets.Cells[i2, 2];
 
-                //create a level in Revit
-                Level curLevel = Level.Create(doc, 100);
+                string dataSheetNumber = excelSheetNumber.Value.ToString();
+                string dataSheetName = excelSheetName.Value.ToString();
 
-                //get titleblock ID number for sheet creation
-                FilteredElementCollector collector = new FilteredElementCollector(doc);
-                collector.OfCategory(BuiltInCategory.OST_TitleBlocks);
-                collector.WhereElementIsElementType();
+                string[] dataArraySheets = new string[2];
+                dataArraySheets[0] = dataSheetNumber;
+                dataArraySheets[1] = dataSheetName;
 
+                dataListSheets.Add(dataArraySheets);
 
-                ViewSheet cursheet = ViewSheet.Create(doc, collector.FirstElementId());
-                cursheet.SheetNumber = "A101";
-                cursheet.Name = "New Sheet";
+                //create sheet
+                using (Transaction t = new Transaction(doc))
+                {
+                    t.Start("Create Sheets");
 
-                t.Commit();
+                    //get titleblock ID number for sheet creation
+                    FilteredElementCollector collector = new FilteredElementCollector(doc);
+                    collector.OfCategory(BuiltInCategory.OST_TitleBlocks);
+                    collector.WhereElementIsElementType();
+
+                    ViewSheet cursheet = ViewSheet.Create(doc, collector.FirstElementId());
+                    cursheet.SheetNumber = dataSheetNumber;
+                    cursheet.Name = dataSheetName;
+
+                    t.Commit();
+                }
             }
             //close excel
             excelWb.Close();
             excelApp.Quit();
 
+            //contrats, you won
             return Result.Succeeded;
         }
 
+        //method - this is an example of a method that adds two int together.
         private static int addNumber(int num1, int num2)
         {
             return num1 + num2;
