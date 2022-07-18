@@ -40,9 +40,9 @@ namespace RevitAddinWorkshop
 
                 //create the levels and views
                 ViewFamilyType curVFT = CollectVFT(doc);
-                ViewFamilyType curRCPVFT = CollectVFT(doc, "Ceiling");
+                ViewFamilyType curRCPVFT = CollectVFT(doc, "ceiling");
 
-                for (int i = 0; i <= (levelData.levelName.Length); i++)
+                for (int i = 0; i < (levelData.levelName.Length); i++)
                 {
                     Level newLevel = Level.Create(doc, levelData.levelElevation[i]);
                     newLevel.Name = levelData.levelName[i];
