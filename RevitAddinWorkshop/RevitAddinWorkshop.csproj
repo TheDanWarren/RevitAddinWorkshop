@@ -55,7 +55,8 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="cmdDeleteBackups.cs" />
-    <Compile Include="Session04Skills.cs" />
+    <Compile Include="cmdElementsFromLines.cs" />
+    <Compile Include="CopyToStart.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="FizzBuzz.cs" />
     <Compile Include="Command01.cs" />

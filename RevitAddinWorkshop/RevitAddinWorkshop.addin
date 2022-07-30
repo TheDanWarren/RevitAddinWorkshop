@@ -5,7 +5,7 @@
 		<Text>Session04Challenge</Text>
 		<Description>Command</Description>
 		<Assembly>RevitAddinWorkshop.dll</Assembly>
-		<FullClassName>RevitAddinWorkshop.Session04Challenge</FullClassName>
+		<FullClassName>RevitAddinWorkshop.cmdElementsFromLines</FullClassName>
 		<ClientId>2F4B75FF-7D71-4CED-AE08-DAE7D5B41381</ClientId>
 		<VendorId>NO.Vendor.ID</VendorId>
 		<VendorDescription>Dan Warren, http://twitter.com/_thedanwarren</VendorDescription>
